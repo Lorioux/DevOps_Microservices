@@ -13,10 +13,10 @@ def lambda_handler(event, context):
     
     ## TO DO: Check that the request has some input body and save it
     if 'body' in event:
-        body = None
+        body = json.loads(event['body'])
     
     ## TO DO: Get the wikipedia "entity" from the body of the request
-    entity = None
+    entity = body['entity']
     res = wikipedia.summary(entity, sentences=1) # first sentence, result
 
     # print statements
@@ -26,6 +26,13 @@ def lambda_handler(event, context):
     ## TO DO: Format the response as JSON and return the result
     response = {
         ## your code here
+        "StatusCode": 200,
+        "Headers": {
+            "Content-Type": "application/json",
+        },
+        "Body": {
+            "message": res
+        }
     }
     
     return response
